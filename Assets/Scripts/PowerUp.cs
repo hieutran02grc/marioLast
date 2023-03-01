@@ -24,7 +24,7 @@ public class PowerUp : MonoBehaviour
         switch (type)
         {
             case Type.Coin:
-                GameManager.Instance.AddCoin();
+                // GameManager.Instance.AddCoin();
                 break;
 
             case Type.ExtraLife:

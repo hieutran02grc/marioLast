@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,11 +11,18 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     public int coins { get; private set; }
 
+    public int point { get; private set; }
+    public int score { get; set; }
+
+
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -22,13 +30,16 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this) {
+        if (Instance == this)
+        {
             Instance = null;
         }
     }
 
     private void Start()
     {
+
+
         Application.targetFrameRate = 60;
 
         NewGame();
@@ -71,9 +82,12 @@ public class GameManager : MonoBehaviour
     {
         lives--;
 
-        if (lives > 0) {
+        if (lives > 0)
+        {
             LoadLevel(world, stage);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
@@ -94,4 +108,8 @@ public class GameManager : MonoBehaviour
         lives++;
     }
 
+    public void addPoint()
+    {
+ 
+    }
 }

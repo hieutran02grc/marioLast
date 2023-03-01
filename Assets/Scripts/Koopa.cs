@@ -8,17 +8,45 @@ public class Koopa : MonoBehaviour
     private bool shelled;
     private bool pushed;
 
+ 
+
+    public int health = 1; // The amount of health the enemy has
+
+     // Called when the mouse button is clicked on the enemy
+    private void OnMouseDown()
+    {
+        
+        // Reduce the enemy's health by 1
+        health--;
+
+        // Check if the enemy's health has reached 0
+        if (health <= 0)
+        {
+            
+            Hit();
+            EnemySpawner.Instance.addPoint();
+            
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!shelled && collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            if (player.starpower) {
+            if (player.starpower)
+            {
+
                 Hit();
-            } else if (collision.transform.DotTest(transform, Vector2.down)) {
+            }
+            else if (collision.transform.DotTest(transform, Vector2.down))
+            {
                 EnterShell();
-            }  else {
+            }
+            else
+            {
                 player.Hit();
             }
         }
@@ -37,9 +65,12 @@ public class Koopa : MonoBehaviour
             {
                 Player player = other.GetComponent<Player>();
 
-                if (player.starpower) {
+                if (player.starpower)
+                {
                     Hit();
-                } else {
+                }
+                else
+                {
                     player.Hit();
                 }
             }
@@ -75,14 +106,17 @@ public class Koopa : MonoBehaviour
 
     private void Hit()
     {
+
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;
         Destroy(gameObject, 3f);
+
     }
 
     private void OnBecameInvisible()
     {
-        if (pushed) {
+        if (pushed)
+        {
             Destroy(gameObject);
         }
     }
